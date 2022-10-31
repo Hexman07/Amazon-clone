@@ -52,12 +52,11 @@ const login = asyncHandler(async (req, res) => {
     msg: "Successfully logged in",
     id: user._id,
     name: user.name,
-    token: generatejwt(user._id),
+    token: user.getJwtToken(),
   });
 });
 
-const generatejwt = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+
 };
 
 module.exports = { createUser, login };
