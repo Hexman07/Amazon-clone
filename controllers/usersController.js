@@ -53,17 +53,13 @@ const login = asyncHandler(async (req, res) => {
     msg: "Successfully logged in",
     id: user._id,
     name: user.name,
-    token: generatejwt(user._id),
+    token: user.getJwtToken(),
   });
 });
 
 const hashPassword = async (password) => {
   const salt = await bcrpyt.genSalt(10);
   return await bcrpyt.hash(password, salt);
-};
-
-const generatejwt = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
 module.exports = { createUser, login };
