@@ -20,8 +20,7 @@ const createUser = asyncHandler(async (req, res) => {
     throw new Error("Email already in use");
   }
 
-  const hashedPassword = await hashPassword(password);
-  const user = await User.create({ name, email, password: hashedPassword });
+  const user = await User.create({ name, email });
   res.status(201).json({ msg: "User created", user });
 });
 
@@ -57,9 +56,7 @@ const login = asyncHandler(async (req, res) => {
   });
 });
 
-const hashPassword = async (password) => {
-  const salt = await bcrpyt.genSalt(10);
-  return await bcrpyt.hash(password, salt);
+
 };
 
 module.exports = { createUser, login };
